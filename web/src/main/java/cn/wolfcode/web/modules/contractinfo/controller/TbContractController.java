@@ -56,7 +56,7 @@ public class TbContractController extends BaseController {
     @PreAuthorize("hasAuthority('contract:contractinfo:add')")
     public ModelAndView toAdd(ModelAndView mv) {
         List<TbCustomer> custList = customerService.list(); //拿到企业客户对象中的所有数据
-        mv.addObject("custList",custList);
+        mv.addObject("custList", custList);
         mv.setViewName("contract/contractinfo/add");
         return mv;
     }
@@ -65,7 +65,7 @@ public class TbContractController extends BaseController {
     @PreAuthorize("hasAuthority('contract:contractinfo:update')")
     public ModelAndView toUpdate(@PathVariable("id") String id, ModelAndView mv) {
         List<TbCustomer> custList = customerService.list(); //拿到企业客户对象中的所有数据
-        mv.addObject("custList",custList);
+        mv.addObject("custList", custList);
         mv.setViewName("contract/contractinfo/update");
         mv.addObject("obj", entityService.getById(id));
         mv.addObject("id", id);
@@ -74,44 +74,42 @@ public class TbContractController extends BaseController {
 
     @RequestMapping("list")
     @PreAuthorize("hasAuthority('contract:contractinfo:list')")
-    public ResponseEntity page(LayuiPage layuiPage,String contractCode,String parameterName) {
+    public ResponseEntity page(LayuiPage layuiPage, String contractCode, String parameterName) {
         //检查分页的参数的
         SystemCheckUtils.getInstance().checkMaxPage(layuiPage);
         //分页的对象
-        IPage page = new Page<>(layuiPage.getPage(), layuiPage.getLimit());
+        IPage<TbContract> page = new Page<>(layuiPage.getPage(), layuiPage.getLimit());
 
-        page= entityService.
+        page = entityService.
                 lambdaQuery()
-                .eq(StringUtils.isNotEmpty(contractCode), TbContract::getContractCode,contractCode)  //企业名称
+                .eq(!StringUtils.isEmpty(contractCode), TbContract::getContractCode, contractCode)  //企业名称
                 .or()
-                .like(!StringUtils.isEmpty(parameterName),TbContract::getContractName,parameterName)
+                .like(!StringUtils.isEmpty(parameterName), TbContract::getContractName, parameterName)
                 .page(page);
 
         //拿到分页列表
-        List<TbCustLinkman> records = page.getRecords();
+        List<TbContract> records = page.getRecords();
         //循环分页列表
-        records.forEach(item->{
+        records.forEach(item -> {
             String id = item.getCustId();//拿到客户id
             TbCustomer tbCustomer = customerService.getById(id);//根据客户id查询客户对象
-            if(tbCustomer!=null){
+            if (tbCustomer != null) {
                 item.setCustName(tbCustomer.getCustomerName());//赋值客户名字
             }
 
-
         });
-
-
         return ResponseEntity.ok(LayuiTools.toLayuiTableModel(page));
     }
+
     @SameUrlData
     @PostMapping("save")
-    @SysLog(value = LogModules.SAVE, module =LogModule)
+    @SysLog(value = LogModules.SAVE, module = LogModule)
     @PreAuthorize("hasAuthority('contract:contractinfo:add')")
-    public ResponseEntity<ApiModel> save(@Validated({AddGroup.class}) @RequestBody TbContract entity,HttpServletRequest request) {
+    public ResponseEntity<ApiModel> save(@Validated({AddGroup.class}) @RequestBody TbContract entity, HttpServletRequest request) {
         // 录入时间
         entity.setInputTime(LocalDateTime.now());//获取的当前时间
         // 录入人
-        SysUser sysUser =(SysUser) request.getSession().getAttribute(LoginForm.LOGIN_USER_KEY);
+        SysUser sysUser = (SysUser) request.getSession().getAttribute(LoginForm.LOGIN_USER_KEY);
         entity.setInputUser(sysUser.getUserId());
         entityService.save(entity);
         return ResponseEntity.ok(ApiModel.ok());

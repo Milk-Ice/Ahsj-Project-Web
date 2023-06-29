@@ -1,6 +1,9 @@
 package cn.wolfcode.web.modules.orderinfo.controller;
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.wolfcode.web.commons.entity.LayuiPage;
 import cn.wolfcode.web.commons.utils.LayuiTools;
+import cn.wolfcode.web.commons.utils.PoiExportHelper;
 import cn.wolfcode.web.commons.utils.SystemCheckUtils;
 import cn.wolfcode.web.modules.BaseController;
 import cn.wolfcode.web.modules.custinfo.entity.TbCustomer;
@@ -16,6 +19,8 @@ import link.ahsj.core.annotations.SameUrlData;
 import link.ahsj.core.annotations.SysLog;
 import link.ahsj.core.annotations.UpdateGroup;
 import link.ahsj.core.entitys.ApiModel;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,6 +29,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -77,9 +83,19 @@ public class TbOrderInfoController extends BaseController {
 
     @RequestMapping("list")
     @PreAuthorize("hasAuthority('order:orderinfo:list')")
-    public ResponseEntity page(LayuiPage layuiPage) {
+    public ResponseEntity page(LayuiPage layuiPage, String parameterName) {
+        //检查分页的参数的
         SystemCheckUtils.getInstance().checkMaxPage(layuiPage);
-        IPage page = new Page<>(layuiPage.getPage(), layuiPage.getLimit());
+        //分页的对象
+        IPage<TbOrderInfo> page = new Page<>(layuiPage.getPage(), layuiPage.getLimit());
+
+        page= entityService.
+                lambdaQuery()
+//                .eq(StringUtils.isNotEmpty(custId),TbCustLinkman::getCustId,custId)  //企业名称
+                .like(!StringUtils.isEmpty(parameterName),TbOrderInfo::getCustName,parameterName) //联系人姓名
+//                .or()
+//                .like(!StringUtils.isEmpty(parameterName),TbCustLinkman::getPhone,parameterName) //联系人电话
+                .page(page);
 
         //拿到分页列表
         List<TbOrderInfo> records = page.getRecords();
@@ -89,12 +105,10 @@ public class TbOrderInfoController extends BaseController {
             TbCustomer tbCustomer = customerService.getById(id);//根据客户id查询客户对象
             if(tbCustomer!=null){
                 item.setCustName(tbCustomer.getCustomerName());//赋值客户名字
+                System.out.println(item.getCustName());
             }
-
         });
-        return ResponseEntity.ok(LayuiTools.toLayuiTableModel(entityService.page(page)));
-
-
+        return ResponseEntity.ok(LayuiTools.toLayuiTableModel(page));
     }
 
     @SameUrlData
@@ -122,5 +136,7 @@ public class TbOrderInfoController extends BaseController {
         entityService.removeById(id);
         return ResponseEntity.ok(ApiModel.ok());
     }
+
+
 
 }

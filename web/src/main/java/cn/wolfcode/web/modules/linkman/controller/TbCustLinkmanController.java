@@ -50,9 +50,10 @@ public class TbCustLinkmanController extends BaseController {
 
     @GetMapping("/list.html")
     public ModelAndView list(ModelAndView mv) {
+
         List<TbCustomer> custList = customerService.list(); //拿到企业客户对象中的所有数据
 
-        mv.addObject("custList",custList);
+        mv.addObject("custList", custList);
         mv.setViewName("user/linkman/list");
         return mv;
     }
