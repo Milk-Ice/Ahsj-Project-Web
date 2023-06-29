@@ -82,9 +82,14 @@
                     </div>
                 </div>
                 <div class="layui-col-lg6">
-                        <label class="layui-form-label">审核状态 0 未审核 1 审核通过 -1 审核不通过</label>
+                        <label class="layui-form-label">审核状态</label>
                     <div class="layui-input-block">
-                        <input type="text"  name="auditStatus"  placeholder="请输入"  autocomplete="off" class="layui-input">
+<#--                        <input type="text"  name="auditStatus"  placeholder="请输入"  autocomplete="off" class="layui-input">
+-->                          <select  name="auditStatus">
+                            <option value="0">未审核</option>
+                            <option value="1">审核通过</option>
+                            <option value="-1">审核不通过</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-col-lg6">
