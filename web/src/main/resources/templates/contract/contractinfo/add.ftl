@@ -76,9 +76,13 @@
                     </div>
                 </div>
                 <div class="layui-col-lg6">
-                        <label class="layui-form-label">是否盖章确认 0 否 1 是</label>
+                        <label class="layui-form-label">是否盖章确认</label>
                     <div class="layui-input-block">
-                        <input type="text"  name="affixSealStatus"  placeholder="请输入"  autocomplete="off" class="layui-input">
+<#--                        <input type="text"  name="affixSealStatus"  placeholder="请输入"  autocomplete="off" class="layui-input">-->
+                        <select name="affixSealStatus">
+                            <option value="0">否</option>
+                            <option value="1">是</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-col-lg6">
@@ -93,9 +97,13 @@
                     </div>
                 </div>
                 <div class="layui-col-lg6">
-                        <label class="layui-form-label">是否作废 1 作废 0 在用</label>
+                        <label class="layui-form-label">是否作废</label>
                     <div class="layui-input-block">
-                        <input type="text"  name="nullifyStatus"  placeholder="请输入"  autocomplete="off" class="layui-input">
+<#--                        <input type="text"  name="nullifyStatus"  placeholder="请输入"  autocomplete="off" class="layui-input">
+-->                         <select name="nullifyStatus">
+                            <option value="1">作废</option>
+                            <option value="0">在用</option>
+                        </select>
                     </div>
                 </div>
 <#--                <div class="layui-col-lg6">-->
