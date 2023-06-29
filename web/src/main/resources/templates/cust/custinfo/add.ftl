@@ -45,7 +45,7 @@
                 </div>
                 <div class="layui-col-lg6">
                         <label class="layui-form-label">经营状态</label>
-                    <div class="layui-input-block">
+                    <div class="lay ui-input-block">
                        <#-- <input type="text"  name="openStatus"  placeholder="请输入"  autocomplete="off" class="layui-input">-->
 
                         <select  name="openStatus">

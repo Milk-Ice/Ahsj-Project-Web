@@ -28,7 +28,14 @@
                 <div class="layui-col-lg6">
                         <label class="layui-form-label">客户id</label>
                     <div class="layui-input-block">
-                        <input type="text"  name="custId"  placeholder="请输入"  autocomplete="off" class="layui-input">
+<#--                        <input type="text"  name="custId"  placeholder="请输入"  autocomplete="off" class="layui-input">
+-->                   <select name="custId">
+                            <option value="">--请选择--</option>
+                            <#list custList as list>
+                                <option value="${list.id}">${list.customerName}</option>
+                            </#list>
+
+                        </select>
                     </div>
                 </div>
                 <div class="layui-col-lg6">

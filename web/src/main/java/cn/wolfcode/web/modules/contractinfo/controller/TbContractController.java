@@ -6,6 +6,8 @@ import cn.wolfcode.web.commons.utils.SystemCheckUtils;
 import cn.wolfcode.web.modules.BaseController;
 import cn.wolfcode.web.modules.contractinfo.entity.TbContract;
 import cn.wolfcode.web.modules.contractinfo.service.ITbContractService;
+import cn.wolfcode.web.modules.custinfo.entity.TbCustomer;
+import cn.wolfcode.web.modules.custinfo.service.ITbCustomerService;
 import cn.wolfcode.web.modules.log.LogModules;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -22,6 +24,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 /**
  * @author hmy
  * @since 2023-06-29
@@ -32,6 +36,8 @@ public class TbContractController extends BaseController {
 
     @Autowired
     private ITbContractService entityService;
+    @Autowired
+    private ITbCustomerService customerService;
 
     private static final String LogModule = "TbContract";
 
@@ -43,6 +49,8 @@ public class TbContractController extends BaseController {
     @RequestMapping("/add.html")
     @PreAuthorize("hasAuthority('contract:contractinfo:add')")
     public ModelAndView toAdd(ModelAndView mv) {
+        List<TbCustomer> custList = customerService.list(); //拿到企业客户对象中的所有数据
+        mv.addObject("custList",custList);
         mv.setViewName("contract/contractinfo/add");
         return mv;
     }
