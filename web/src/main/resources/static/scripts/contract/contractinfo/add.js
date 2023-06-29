@@ -1,7 +1,17 @@
-layui.use(['form', 'layer'], function () {
+layui.use(['form', 'layer','laydate'], function () {
     var form = layui.form,
         layer = layui.layer,
+        laydate = layui.laydate,
         $ = layui.jquery;
+
+    //渲染
+    laydate.render({
+        elem: '#startDate',
+    });
+
+    laydate.render({
+        elem: '#endDate',
+    });
 
     form.on('submit(Add-filter)', function (data) {
         $.ajax({
