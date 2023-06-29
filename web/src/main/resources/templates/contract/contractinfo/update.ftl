@@ -37,12 +37,20 @@
                 <div class="layui-col-lg6">
                         <label class="layui-form-label">客户id</label>
                     <div class="layui-input-block">
-                        <input type="text"
-                               name="custId"
-                               value="${obj.custId}"
-                               autocomplete="off"
-                               class="layui-input">
+<#--                        <input type="text"-->
+<#--                               name="custId"-->
+<#--                               value="${obj.custId}"-->
+<#--                               autocomplete="off"-->
+<#--                               class="layui-input">-->
+                        <select name="custId">
+                            <#list custList as list>
+                                <option value="${list.id}">${list.customerName}</option>
+                            </#list>
+
+                        </select>
+
                     </div>
+
                 </div>
 
 
@@ -119,37 +127,50 @@
 
 
                 <div class="layui-col-lg6">
-                        <label class="layui-form-label">是否盖章确认 0 否 1 是</label>
+                        <label class="layui-form-label">是否盖章确认</label>
                     <div class="layui-input-block">
-                        <input type="text"
-                               name="affixSealStatus"
-                               value="${obj.affixSealStatus}"
-                               autocomplete="off"
-                               class="layui-input">
+<#--                        <input type="text"-->
+<#--                               name="affixSealStatus"-->
+<#--                               value="${obj.affixSealStatus}"-->
+<#--                               autocomplete="off"-->
+<#--                               class="layui-input">-->
+                        <select name="affixSealStatus">
+                            <option value="0">否</option>
+                            <option value="1">是</option>
+                        </select>
                     </div>
                 </div>
 
 
                 <div class="layui-col-lg6">
-                        <label class="layui-form-label">审核状态 0 未审核 1 审核通过 -1 审核不通过</label>
+                        <label class="layui-form-label">审核状态</label>
                     <div class="layui-input-block">
-                        <input type="text"
-                               name="auditStatus"
-                               value="${obj.auditStatus}"
-                               autocomplete="off"
-                               class="layui-input">
+<#--                        <input type="text"-->
+<#--                               name="auditStatus"-->
+<#--                               value="${obj.auditStatus}"-->
+<#--                               autocomplete="off"-->
+<#--                               class="layui-input">-->
+                        <select name="auditStatus">
+                            <option value="0">未审核</option>
+                            <option value="1">审核通过</option>
+                            <option value="2">审核不通过</option>
+                        </select>
                     </div>
                 </div>
 
 
                 <div class="layui-col-lg6">
-                        <label class="layui-form-label">是否作废 1 作废 0 在用</label>
+                        <label class="layui-form-label">是否作废</label>
                     <div class="layui-input-block">
-                        <input type="text"
-                               name="nullifyStatus"
-                               value="${obj.nullifyStatus}"
-                               autocomplete="off"
-                               class="layui-input">
+<#--                        <input type="text"-->
+<#--                               name="nullifyStatus"-->
+<#--                               value="${obj.nullifyStatus}"-->
+<#--                               autocomplete="off"-->
+<#--                               class="layui-input">-->
+                        <select name="nullifyStatus">
+                            <option value="1">作废</option>
+                            <option value="0">在用</option>
+                        </select>
                     </div>
                 </div>
 

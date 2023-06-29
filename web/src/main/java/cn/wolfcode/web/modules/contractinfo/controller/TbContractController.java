@@ -62,6 +62,8 @@ public class TbContractController extends BaseController {
     @GetMapping("/{id}.html")
     @PreAuthorize("hasAuthority('contract:contractinfo:update')")
     public ModelAndView toUpdate(@PathVariable("id") String id, ModelAndView mv) {
+        List<TbCustomer> custList = customerService.list(); //拿到企业客户对象中的所有数据
+        mv.addObject("custList",custList);
         mv.setViewName("contract/contractinfo/update");
         mv.addObject("obj", entityService.getById(id));
         mv.addObject("id", id);
@@ -96,6 +98,7 @@ public class TbContractController extends BaseController {
     @PutMapping("update")
     @PreAuthorize("hasAuthority('contract:contractinfo:update')")
     public ResponseEntity<ApiModel> update(@Validated({UpdateGroup.class}) @RequestBody TbContract entity) {
+
         entityService.updateById(entity);
         return ResponseEntity.ok(ApiModel.ok());
     }
