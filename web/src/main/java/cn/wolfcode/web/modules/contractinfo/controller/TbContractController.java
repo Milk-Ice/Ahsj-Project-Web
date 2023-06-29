@@ -9,6 +9,8 @@ import cn.wolfcode.web.modules.contractinfo.service.ITbContractService;
 import cn.wolfcode.web.modules.custinfo.entity.TbCustomer;
 import cn.wolfcode.web.modules.custinfo.service.ITbCustomerService;
 import cn.wolfcode.web.modules.log.LogModules;
+import cn.wolfcode.web.modules.sys.entity.SysUser;
+import cn.wolfcode.web.modules.sys.form.LoginForm;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import link.ahsj.core.annotations.AddGroup;
@@ -24,6 +26,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -76,9 +80,15 @@ public class TbContractController extends BaseController {
     @PostMapping("save")
     @SysLog(value = LogModules.SAVE, module =LogModule)
     @PreAuthorize("hasAuthority('contract:contractinfo:add')")
-    public ResponseEntity<ApiModel> save(@Validated({AddGroup.class}) @RequestBody TbContract entity) {
+    public ResponseEntity<ApiModel> save(@Validated({AddGroup.class}) @RequestBody TbContract entity,HttpServletRequest request) {
+        // 录入时间
+        entity.setInputTime(LocalDateTime.now());//获取的当前时间
+        // 录入人
+        SysUser sysUser =(SysUser) request.getSession().getAttribute(LoginForm.LOGIN_USER_KEY);
+        entity.setInputUser(sysUser.getUserId());
         entityService.save(entity);
         return ResponseEntity.ok(ApiModel.ok());
+
     }
 
     @SameUrlData
