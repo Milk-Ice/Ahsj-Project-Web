@@ -9,28 +9,34 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
 
     //用户列表
     var tableIns = table.render({
-        elem: '#demoList',
-        url: web.rootPath() + 'demo/demoList',
+        elem: '#List',
+        url: web.rootPath() + 'visitinfo/list',
         cellMinWidth: 95,
         page: true,
         height: "full-" + Math.round(Number($('.layui-card-header').height()) + 44),
         limits: [10, 13, 15, 20, 30, 50, 100, 200],
         limit: 10,
-        toolbar: '#demoList-toolbar',
-        id: "demoListTable",
+        toolbar: '#List-toolbar',
+        id: "ListTable",
         cols: [[
             {type: "checkbox", fixed: "left", width: 50},
-            {field: 'name', title: '名称', minWidth: 100, align: "center"},
-            {field: 'info', title: '描述', minWidth: 100, align: "center"},
-            {field: 'age', title: '年龄', minWidth: 100, align: "center"},
-            {field: 'createTime', title: '创建时间', minWidth: 100, align: "center"},
-            {title: '操作', width: 160, templet: '#demoList-editBar', fixed: "right", align: "center"}
+                    {field: 'id', title: '唯一id', minWidth: 100, align: "center"},
+                    {field: 'custId', title: '客户id', minWidth: 100, align: "center"},
+                    {field: 'linkmanId', title: '联系人id', minWidth: 100, align: "center"},
+                    {field: 'visitType', title: '拜访方式, 1 上门走访, 2 电话拜访', minWidth: 100, align: "center"},
+                    {field: 'visitReason', title: '拜访原因', minWidth: 100, align: "center"},
+                    {field: 'content', title: '交流内容', minWidth: 100, align: "center"},
+                    {field: 'visitDate', title: '拜访时间', minWidth: 100, align: "center"},
+                    {field: 'inputUser', title: '录入人', minWidth: 100, align: "center"},
+                    {field: 'inputTime', title: '录入时间', minWidth: 100, align: "center"},
+
+            {title: '操作', width: 160, templet: '#List-editBar', fixed: "right", align: "center"}
         ]],
+
     });
 
     //头工具栏事件
-    table.on('toolbar(demoList-toolbar)', function (obj) {
-        var checkStatus = table.checkStatus(obj.config.id);
+    table.on('toolbar(List-toolbar)', function (obj) {
         switch (obj.event) {
             case 'add':
                 layer.msg("add");
@@ -61,41 +67,41 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
         }
     };
 
-    $('#demoSearchBtn').on('click', function () {
+    $('#SearchBtn').on('click', function () {
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
     });
 
 
     //头工具栏事件
-    table.on('toolbar(demoList-toolbar)', function (obj) {
+    table.on('toolbar(List-toolbar)', function (obj) {
         if (obj.event == 'add') {
             layer.open({
-                id: "demoSave-frame",
+                id: "Save-frame",
                 type: 2,
                 area: ['600px', '501px'],
-                title: '新增角色',
+                title: '新增',
                 fixed: false,
                 maxmin: true,
-                content: web.rootPath() + 'demo/add.html'
+                content: web.rootPath() + 'visitinfo/add.html'
             });
         }
         ;
     });
     //监听工具条
-    table.on('tool(demoList-toolbar)', function (obj) {
+    table.on('tool(List-toolbar)', function (obj) {
         var data = obj.data;
         switch (obj.event) {
             case 'update':
                 layer.open({
-                    id: "demoUpdate-frame",
+                    id: "Update-frame",
                     type: 2,
                     resize: false,
                     area: ['550px', '500px'],
-                    title: '修改角色',
+                    title: '修改',
                     fixed: false,
                     maxmin: true,
-                    content: web.rootPath() + "demo/" + data.id + ".html?_"
+                    content: web.rootPath() + "visitinfo/" + data.id + ".html?_"
                 });
                 break;
             case 'delete':
@@ -103,7 +109,7 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
                     btn: ['确定', '取消'] //按钮
                 }, function () {
                     $.ajax({
-                        url: web.rootPath() + "demo/delete/" + data.id,
+                        url: web.rootPath() + "visitinfo/delete/" + data.id,
                         type: "delete",
                         contentType: "application/json;charset=utf-8",
                         data: JSON.stringify(data.field),
@@ -112,7 +118,7 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
                             layer.msg("操作成功", {
                                 icon: 1,
                                 success: function () {
-                                    $('#demoSearchBtn').trigger("click");
+                                    $('#SearchBtn').trigger("click");
                                 }
                             });
                         },
@@ -127,6 +133,6 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
     });
 
     $(window).resize(function () {
-        $('div[lay-id="demoListTable"]').height(document.body.offsetHeight - Math.round(Number($('.layui-card-header').height()) + 47));
+        $('div[lay-id="ListTable"]').height(document.body.offsetHeight - Math.round(Number($('.layui-card-header').height()) + 47));
     });
 });

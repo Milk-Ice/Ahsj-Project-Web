@@ -7,7 +7,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, demo-scalable=0">
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="${request.contextPath}/layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="${request.contextPath}/layuiadmin/style/admin.css" media="all">
     <link rel="stylesheet" href="${request.contextPath}/layuiadmin/style/common.css" media="all">
@@ -18,7 +18,7 @@
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md12">
             <div class="layui-card">
-                <@sec.authenticate grants="demo:demoList">
+                <@sec.authenticate grants="user:linkman:list">
 
                     <!-- 搜索条件start -->
                     <form class="layui-form layui-card-header layuiadmin-card-header-auto"
@@ -34,7 +34,23 @@
                             </div>
 
                             <div class="layui-inline">
-                                <button type="button" class="layui-btn layui-btn-normal" id="demoSearchBtn"
+                                <label class="layui-form-label">所属企业</label>
+                                <div class="layui-input-block input-box">
+                                   <#-- <input type="text" name="parameterName" placeholder="请输入"
+                                           autocomplete="off"
+                                           class="layui-input">-->
+                                    <select name="custId">
+                                            <option value="">--请选择--</option>
+                                        <#list custList as list>
+                                            <option value="${list.id}">${list.customerName}</option>
+                                        </#list>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="layui-inline">
+                                <button type="button" class="layui-btn layui-btn-normal" id="SearchBtn"
                                         data-type="reload">搜索
                                 </button>
                                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
@@ -47,13 +63,11 @@
 
                 <!-- 数据表格start -->
                 <div class="layui-card-body">
-                    <table class="layui-hide" id="demoList" lay-filter="demoList-toolbar">
+                    <table class="layui-hide" id="List" lay-filter="List-toolbar"></table>
 
-                    </table>
-
-                    <script type="text/html" id="demoList-toolbar">
+                    <script type="text/html" id="List-toolbar">
                         <div class="layui-btn-container">
-                            <@sec.authenticate grants="demo:add">
+                            <@sec.authenticate grants="user:linkman:add">
                                 <button class="layui-btn layui-btn-sm layui-btn-primary"
                                         lay-event="add"><i class="layui-icon">&#xe654;</i>新增
                                 </button>
@@ -61,12 +75,12 @@
                         </div>
                     </script>
 
-                    <script type="text/html" id="demoList-editBar">
-                        <@sec.authenticate grants="demo:update">
+                    <script type="text/html" id="List-editBar">
+                        <@sec.authenticate grants="user:linkman:update">
                             <a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="update"><i
                                         class="layui-icon">&#xe642;</i>修改</a>
                         </@sec.authenticate>
-                        <@sec.authenticate grants="demo:delete">
+                        <@sec.authenticate grants="user:linkman:delete">
                             <a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="delete"><i
                                         class="layui-icon">&#xe640;</i>删除</a>
                         </@sec.authenticate>
@@ -81,8 +95,6 @@
 <script src="${request.contextPath}/layuiadmin/layui/layui.js"></script>
 <script src="${request.contextPath}/layui-extend.js"></script>
 <script src="${request.contextPath}/webjars/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="${request.contextPath}/scripts/test/demo/demoList.js?_=${randomNum}"></script>
-<script type="text/javascript" src="${request.contextPath}/static/scripts/newForm.js?_=${randomNum}"></script>
-
+<script type="text/javascript" src="${request.contextPath}/scripts/user/linkman/list.js?_=${randomNum}"></script>
 </body>
 </html>

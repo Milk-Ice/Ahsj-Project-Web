@@ -6,7 +6,7 @@ datasource:
     ip: localhost
     port: 3306
     username: root
-    password: 12345678
+    password: 123456
     #8.0配置  serverTimezone=PRC
     #5.7配置  serverTimezone=GMT%2B8
     #5.7配置  serverTimezone=UTC  早8小时

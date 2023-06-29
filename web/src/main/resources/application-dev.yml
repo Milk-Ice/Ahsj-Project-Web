@@ -1,13 +1,13 @@
 datasource:
   mysql:
     validation-query: select 1
-    driver: com.mysql.jdbc.Driver
-    database: nojoke
+    driver: com.mysql.cj.jdbc.Driver
+    database: nojoke_fosu
     ip: localhost
     port: 3306
     username: root
-    password: 12345678
-    url: jdbc:mysql://${datasource.mysql.ip}:${datasource.mysql.port}/${datasource.mysql.database}?useSSL=false&serverTimezone=UTC&characterEncoding=utf8
+    password: 123456
+    url: jdbc:mysql://${datasource.mysql.ip}:${datasource.mysql.port}/${datasource.mysql.database}?useSSL=false&serverTimezone=GMT%2B8&characterEncoding=utf8
   redis:
     database: 0
     ip: localhost

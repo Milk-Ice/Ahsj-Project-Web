@@ -69,6 +69,7 @@ public class SignController {
     @SysLog(value = "用户登录", module = "登录模块")
     @PostMapping("/login")
     public ResponseEntity<ApiModel> login(HttpServletRequest request, @Validated @RequestBody LoginForm form) throws Exception {
+        //ctrl + alt + b
         signService.checkLogin(form, request.getSession());
 
         return ResponseEntity.ok(ApiModel.ok());

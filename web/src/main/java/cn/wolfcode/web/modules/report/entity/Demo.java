@@ -21,5 +21,8 @@ public class Demo implements Serializable {
     private String name;
     private String info;
     private LocalDateTime createTime;
+    private Integer age;
+
+
 
 }
