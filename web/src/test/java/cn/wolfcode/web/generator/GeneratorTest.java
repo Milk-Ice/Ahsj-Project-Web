@@ -33,16 +33,16 @@ public class GeneratorTest {
         GeneratorUtils.generator(
                 "web",
                 "cn.wolfcode.web.modules",//包名字
-                "contractinfo", //后端模块名字
+                "orderinfo", //后端模块名字
                 DbType.MYSQL,
-                "D:\\app",
+                "D:\\app2",
                 // 页面上的父上下文
                 // 自己的上下文
                 "1111",
-                "合同管理",
+                "订货单功能",
                 null,
-                "contract",//一级目录
-                "contractinfo",//二级目录
+                "order",//一级目录
+                "orderinfo",//二级目录
                 "hmy",
                 "127.0.0.1",
                 "3306",
@@ -52,7 +52,7 @@ public class GeneratorTest {
                 new String[]{"bmd_", "mp_", "SYS_"}, //忽略不计
 
 
-                new String[]{"tb_contract"}, //数据库的表名
+                new String[]{"tb_order_info"}, //数据库的表名
                 false
         );
     }
