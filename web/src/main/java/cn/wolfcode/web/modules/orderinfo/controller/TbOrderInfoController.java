@@ -5,6 +5,7 @@ import cn.wolfcode.web.commons.utils.SystemCheckUtils;
 import cn.wolfcode.web.modules.BaseController;
 import cn.wolfcode.web.modules.custinfo.entity.TbCustomer;
 import cn.wolfcode.web.modules.custinfo.service.ITbCustomerService;
+import cn.wolfcode.web.modules.linkman.entity.TbCustLinkman;
 import cn.wolfcode.web.modules.log.LogModules;
 import cn.wolfcode.web.modules.orderinfo.entity.TbOrderInfo;
 import cn.wolfcode.web.modules.orderinfo.service.ITbOrderInfoService;
@@ -43,8 +44,13 @@ public class TbOrderInfoController extends BaseController {
     private static final String LogModule = "TbOrderInfo";
 
     @GetMapping("/list.html")
-    public String list() {
-        return "order/orderinfo/list";
+    public ModelAndView list(ModelAndView mv) {
+
+        List<TbCustomer> custList = customerService.list(); //拿到企业客户对象中的所有数据
+
+        mv.addObject("custList",custList);
+        mv.setViewName("order/orderinfo/list");
+        return mv;
     }
 
     @RequestMapping("/add.html")
@@ -59,6 +65,10 @@ public class TbOrderInfoController extends BaseController {
     @GetMapping("/{id}.html")
     @PreAuthorize("hasAuthority('order:orderinfo:update')")
     public ModelAndView toUpdate(@PathVariable("id") String id, ModelAndView mv) {
+
+        List<TbCustomer> custList = customerService.list(); //拿到企业客户对象中的所有数据
+        mv.addObject("custList",custList);
+
         mv.setViewName("order/orderinfo/update");
         mv.addObject("obj", entityService.getById(id));
         mv.addObject("id", id);
@@ -70,7 +80,21 @@ public class TbOrderInfoController extends BaseController {
     public ResponseEntity page(LayuiPage layuiPage) {
         SystemCheckUtils.getInstance().checkMaxPage(layuiPage);
         IPage page = new Page<>(layuiPage.getPage(), layuiPage.getLimit());
+
+        //拿到分页列表
+        List<TbOrderInfo> records = page.getRecords();
+        //循环分页列表
+        records.forEach(item->{
+            String id = item.getCustId();//拿到客户id
+            TbCustomer tbCustomer = customerService.getById(id);//根据客户id查询客户对象
+            if(tbCustomer!=null){
+                item.setCustName(tbCustomer.getCustomerName());//赋值客户名字
+            }
+
+        });
         return ResponseEntity.ok(LayuiTools.toLayuiTableModel(entityService.page(page)));
+
+
     }
 
     @SameUrlData

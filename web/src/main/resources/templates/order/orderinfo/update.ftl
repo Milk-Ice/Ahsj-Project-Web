@@ -22,26 +22,33 @@
             <div class="layui-row layui-col-space10 layui-form-item">
 
 
-                <div class="layui-col-lg6">
-                        <label class="layui-form-label">id</label>
-                    <div class="layui-input-block">
-                        <input type="text"
-                               name="id"
-                               value="${obj.id}"
-                               autocomplete="off"
-                               class="layui-input">
-                    </div>
-                </div>
+<#--                <div class="layui-col-lg6">-->
+<#--                        <label class="layui-form-label">id</label>-->
+<#--                    <div class="layui-input-block">-->
+<#--                        <input type="text"-->
+<#--                               name="id"-->
+<#--                               value="${obj.id}"-->
+<#--                               autocomplete="off"-->
+<#--                               class="layui-input">-->
+<#--                    </div>-->
+<#--                </div>-->
 
 
                 <div class="layui-col-lg6">
-                        <label class="layui-form-label">所属客户id</label>
+                        <label class="layui-form-label">收货企业</label>
                     <div class="layui-input-block">
-                        <input type="text"
-                               name="custId"
-                               value="${obj.custId}"
-                               autocomplete="off"
-                               class="layui-input">
+<#--                        <input type="text"-->
+<#--                               name="custId"-->
+<#--                               value="${obj.custId}"-->
+<#--                               autocomplete="off"-->
+<#--                               class="layui-input">-->
+                        <select name="custId" lay-filter="custSelectFormLinkman">
+                            <#list custList as list>
+
+                                <option <#if list.id == obj.custId>selected</#if>  value="${list.id}">${list.customerName}</option>
+                            </#list>
+
+                        </select>
                     </div>
                 </div>
 
@@ -85,11 +92,16 @@
                 <div class="layui-col-lg6">
                         <label class="layui-form-label">状态 0 未发货 1 已发货 2 已收货</label>
                     <div class="layui-input-block">
-                        <input type="text"
-                               name="status"
-                               value="${obj.status}"
-                               autocomplete="off"
-                               class="layui-input">
+<#--                        <input type="text"-->
+<#--                               name="status"-->
+<#--                               value="${obj.status}"-->
+<#--                               autocomplete="off"-->
+<#--                               class="layui-input">-->
+                        <select name="status">
+                            <option <#if obj.status==0>selected</#if> value="0">未发货</option>
+                            <option <#if obj.status==1>selected</#if> value="1">已发货</option>
+                            <option <#if obj.status==1>selected</#if> value="2">已收货</option>
+                        </select>
                     </div>
                 </div>
 
@@ -97,11 +109,16 @@
                 <div class="layui-col-lg6">
                         <label class="layui-form-label">收货人</label>
                     <div class="layui-input-block">
-                        <input type="text"
-                               name="receiver"
-                               value="${obj.receiver}"
-                               autocomplete="off"
-                               class="layui-input">
+<#--                        <input type="text"-->
+<#--                               name="receiver"-->
+<#--                               id="receiver"-->
+<#--                               value="${obj.receiver}"-->
+<#--                               autocomplete="off"-->
+<#--                               class="layui-input">-->
+
+                        <select name="linkmanId" id="linkmanId">
+                            <option selected>${obj.receiver}</option>
+                        </select>
                     </div>
                 </div>
 
