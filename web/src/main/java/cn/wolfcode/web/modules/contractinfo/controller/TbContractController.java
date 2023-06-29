@@ -8,6 +8,7 @@ import cn.wolfcode.web.modules.contractinfo.entity.TbContract;
 import cn.wolfcode.web.modules.contractinfo.service.ITbContractService;
 import cn.wolfcode.web.modules.custinfo.entity.TbCustomer;
 import cn.wolfcode.web.modules.custinfo.service.ITbCustomerService;
+import cn.wolfcode.web.modules.linkman.entity.TbCustLinkman;
 import cn.wolfcode.web.modules.log.LogModules;
 import cn.wolfcode.web.modules.sys.entity.SysUser;
 import cn.wolfcode.web.modules.sys.form.LoginForm;
@@ -18,6 +19,7 @@ import link.ahsj.core.annotations.SameUrlData;
 import link.ahsj.core.annotations.SysLog;
 import link.ahsj.core.annotations.UpdateGroup;
 import link.ahsj.core.entitys.ApiModel;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -72,12 +74,35 @@ public class TbContractController extends BaseController {
 
     @RequestMapping("list")
     @PreAuthorize("hasAuthority('contract:contractinfo:list')")
-    public ResponseEntity page(LayuiPage layuiPage) {
+    public ResponseEntity page(LayuiPage layuiPage,String contractCode,String parameterName) {
+        //检查分页的参数的
         SystemCheckUtils.getInstance().checkMaxPage(layuiPage);
+        //分页的对象
         IPage page = new Page<>(layuiPage.getPage(), layuiPage.getLimit());
-        return ResponseEntity.ok(LayuiTools.toLayuiTableModel(entityService.page(page)));
-    }
 
+        page= entityService.
+                lambdaQuery()
+                .eq(StringUtils.isNotEmpty(contractCode), TbContract::getContractCode,contractCode)  //企业名称
+                .or()
+                .like(!StringUtils.isEmpty(parameterName),TbContract::getContractName,parameterName)
+                .page(page);
+
+        //拿到分页列表
+        List<TbCustLinkman> records = page.getRecords();
+        //循环分页列表
+        records.forEach(item->{
+            String id = item.getCustId();//拿到客户id
+            TbCustomer tbCustomer = customerService.getById(id);//根据客户id查询客户对象
+            if(tbCustomer!=null){
+                item.setCustName(tbCustomer.getCustomerName());//赋值客户名字
+            }
+
+
+        });
+
+
+        return ResponseEntity.ok(LayuiTools.toLayuiTableModel(page));
+    }
     @SameUrlData
     @PostMapping("save")
     @SysLog(value = LogModules.SAVE, module =LogModule)
