@@ -19,7 +19,6 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <@sec.authenticate grants="cust:custinfo:list">
-
                     <!-- 搜索条件start -->
                     <form class="layui-form layui-card-header layuiadmin-card-header-auto"
                          id="searchForm">
