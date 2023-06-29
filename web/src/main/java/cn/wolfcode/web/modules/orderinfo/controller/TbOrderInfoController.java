@@ -3,6 +3,8 @@ import cn.wolfcode.web.commons.entity.LayuiPage;
 import cn.wolfcode.web.commons.utils.LayuiTools;
 import cn.wolfcode.web.commons.utils.SystemCheckUtils;
 import cn.wolfcode.web.modules.BaseController;
+import cn.wolfcode.web.modules.custinfo.entity.TbCustomer;
+import cn.wolfcode.web.modules.custinfo.service.ITbCustomerService;
 import cn.wolfcode.web.modules.log.LogModules;
 import cn.wolfcode.web.modules.orderinfo.entity.TbOrderInfo;
 import cn.wolfcode.web.modules.orderinfo.service.ITbOrderInfoService;
@@ -21,6 +23,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 /**
  * @author hmy
  * @since 2023-06-29
@@ -32,6 +37,9 @@ public class TbOrderInfoController extends BaseController {
     @Autowired
     private ITbOrderInfoService entityService;
 
+    @Autowired
+    private ITbCustomerService customerService;
+
     private static final String LogModule = "TbOrderInfo";
 
     @GetMapping("/list.html")
@@ -42,6 +50,8 @@ public class TbOrderInfoController extends BaseController {
     @RequestMapping("/add.html")
     @PreAuthorize("hasAuthority('order:orderinfo:add')")
     public ModelAndView toAdd(ModelAndView mv) {
+        List<TbCustomer> list = customerService.list();
+        mv.addObject("custList", list);
         mv.setViewName("order/orderinfo/add");
         return mv;
     }
