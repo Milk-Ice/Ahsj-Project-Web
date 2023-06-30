@@ -35,15 +35,15 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
                     {field: 'status', title: '状态', minWidth: 100, align: "center", templet:
                             function (e){
                                 if(e.status == 0){
-                                    return "未发货";
+                                    return " <button type=\"button\" class=\"layui-btn layui-btn-normal\">未发货</button>";
                                 }else if (e.status == 1){
-                                    return "已发货";
+                                    return " <button type=\"button\" class=\"layui-btn layui-btn-warm\">已发货</button>";
                                 }else if(e.status == 2){
-                                    return "已收货";
+                                    return " <button type=\"button\" class=\"layui-btn layui-btn-danger\">已收货</button>";
                                 }else if(e.status == 3){
-                                    return "确认收货";
+                                    return " <button type=\"button\" class=\"layui-btn layui-btn-disabled\">确认收货</button>";
                                 }else{
-                                    return "未知数据";
+                                    return '未知数据';
                                 }
 
                     }},

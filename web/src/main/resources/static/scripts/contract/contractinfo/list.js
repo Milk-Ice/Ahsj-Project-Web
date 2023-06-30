@@ -31,27 +31,29 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
                     {field: 'affixSealStatus', title: '是否盖章确认 0 否 1 是', minWidth: 100, align: "center", templet:
                     function (e){
                         if(e.affixSealStatus == 0){
-                            return '否';
+                            return '<button type=\"button\" class=\"layui-btn layui-btn-danger\">否</button>'
+
                         } else{
-                            return '是';
+                            return '<button type=\"button\" class=\"layui-btn layui-btn-primary\">是</button>'
                         }
                     }},
                     {field: 'auditStatus', title: '审核状态 0 未审核 1 审核通过 -1 审核不通过', minWidth: 100, align: "center", templet:
                             function (e){
                                 if(e.auditStatus == 0){
-                                    return '未审核';
+                                    return '<button type=\"button\" class=\"layui-btn layui-btn-warm\">未审核</button>';
                                 } else if(e.auditStatus == 1){
-                                    return '审核通过';
+                                    return '<button type=\"button\" class=\"layui-btn layui-btn-normal\">审核通过</button>';
                                 }else if(e.auditStatus == -1){
-                                    return '审核不通过';
+                                    return '<button type=\"button\" class=\"layui-btn layui-btn-danger\">审核未通过</button>';
                                 }
                             }},
                     {field: 'nullifyStatus', title: '是否作废 1 作废 0 在用', minWidth: 100, align: "center",templet:
                             function (e){
                                 if(e.nullifyStatus == 1){
-                                    return '作废';
+                                    return '<button type=\"button\" class=\"layui-btn layui-btn-danger\">作废</button>';
+
                                 } else{
-                                    return '在用';
+                                    return '<button type=\"button\" class=\"layui-btn layui-btn-normal\">在用</button>';
                                 }
                             }},
                     {field: 'inputUser', title: '录入人', minWidth: 100, align: "center"},
