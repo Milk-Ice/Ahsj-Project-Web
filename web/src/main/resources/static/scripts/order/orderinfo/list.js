@@ -49,6 +49,7 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
 
                     }
             },
+            {field: 'inputTime', title: '录入时间', minWidth: 130, align: "center"},
             {field: 'receiverName', title: '收货人', minWidth: 100, align: "center"},
             {field: 'linkPhone', title: '收货人电话', minWidth: 100, align: "center"},
             {field: 'address', title: '收货地址', minWidth: 100, align: "center"},

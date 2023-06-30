@@ -85,6 +85,8 @@ spring:
       #异步关闭链接启用
       async-init: true
       async-close-connection-enable: true
+
+
   redis:
     password: ${datasource.redis.password}
     database: ${datasource.redis.database}
@@ -115,6 +117,7 @@ spring:
     settings.classic_compatible: true
     settings.datetime_format: "yyyy-MM-dd HH:mm:ss"
     request-context-attribute: request
+
   application:
     name: nebula-web
   cache:

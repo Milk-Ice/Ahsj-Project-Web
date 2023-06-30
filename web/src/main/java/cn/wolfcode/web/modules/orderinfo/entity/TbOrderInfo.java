@@ -93,5 +93,10 @@ public class TbOrderInfo implements Serializable {
      */
     private LocalDate receiveTime;
 
+    /**
+     * 录入时间
+     */
+    private LocalDateTime inputTime;
+
 
 }

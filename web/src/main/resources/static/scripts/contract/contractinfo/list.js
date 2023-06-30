@@ -33,9 +33,8 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
                     function (e) {
                         if (e.affixSealStatus == 0) {
                             return '<button type=\"button\" class=\"layui-btn layui-btn-danger\">否</button>'
-
                         } else {
-                            return '<button type=\"button\" class=\"layui-btn layui-btn-primary\">是</button>'
+                            return '<button type=\"button\" class=\"layui-btn layui-btn-normal\">是</button>'
                         }
                     }
             },
@@ -65,6 +64,7 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
                             return '<button type=\"button\" class=\"layui-btn layui-btn-normal\">在用</button>';
                         }
                     }
+
             },
             {field: 'inputUser', title: '录入人', minWidth: 100, align: "center"},
             {field: 'inputTime', title: '录入时间', minWidth: 100, align: "center"},

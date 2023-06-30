@@ -94,8 +94,8 @@ public class TbOrderInfoController extends BaseController {
 
         page= entityService.
                 lambdaQuery()
-//                .le(!StringUtils.isEmpty(endTime), TbOrderInfo::getReceiveTime, endTime)
-//                .ge(!StringUtils.isEmpty(startTime), TbOrderInfo::getDeliverTime, startTime)
+                .ge(!StringUtils.isEmpty(startTime), TbOrderInfo::getInputTime, startTime)
+                .le(!StringUtils.isEmpty(endTime), TbOrderInfo::getInputTime, endTime)
                 .like(!StringUtils.isEmpty(parameterName),TbOrderInfo::getProdName,parameterName)
                 .page(page);
 
@@ -110,7 +110,6 @@ public class TbOrderInfoController extends BaseController {
             if(tbCustomer!=null){
                 item.setCustName(tbCustomer.getCustomerName());//赋值客户名字
                 item.setReceiverName(tbCustLinkman.getLinkman());
-//                System.out.println(item.getCustName());
             }
         });
         return ResponseEntity.ok(LayuiTools.toLayuiTableModel(page));
@@ -121,6 +120,7 @@ public class TbOrderInfoController extends BaseController {
     @SysLog(value = LogModules.SAVE, module =LogModule)
     @PreAuthorize("hasAuthority('order:orderinfo:add')")
     public ResponseEntity<ApiModel> save(@Validated({AddGroup.class}) @RequestBody TbOrderInfo entity) {
+        entity.setInputTime(LocalDateTime.now());
         entityService.save(entity);
         return ResponseEntity.ok(ApiModel.ok());
     }
