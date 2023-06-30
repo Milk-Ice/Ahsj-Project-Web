@@ -42,7 +42,7 @@
 <#--                                </div>-->
 <#--                            </div>-->
                             <div class="layui-inline">
-                                <label class="layui-form-label">审核方式</label>
+                                <label class="layui-form-label">审核情况</label>
                                 <div class="layui-input-block input-box">
                                     <select name="auditStatus">
                                         <option value="">---未选择---</option>
@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                             <div class="layui-inline">
-                                <label class="layui-form-label">盖章方式</label>
+                                <label class="layui-form-label">是否盖章</label>
                                 <div class="layui-input-block input-box">
                                     <select name="affixSealStatus">
                                         <option value="">---未选择---</option>
@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                             <div class="layui-inline">
-                                <label class="layui-form-label">作废方式</label>
+                                <label class="layui-form-label">是否作废</label>
                                 <div class="layui-input-block input-box">
                                     <select name="nullifyStatus">
                                         <option value="">---未选择---</option>
