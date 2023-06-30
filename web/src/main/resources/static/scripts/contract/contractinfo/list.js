@@ -20,17 +20,40 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
         id: "ListTable",
         cols: [[
             {type: "checkbox", fixed: "left", width: 50},
-                    {field: 'id', title:  'id', minWidth: 100, align: "center"},
-                    {field: 'custId', title: '客户id', minWidth: 100, align: "center"},
+                    // {field: 'id', title:  'id', minWidth: 100, align: "center"},
+                    {field: 'custName', title: '所属企业', minWidth: 100, align: "center"},
                     {field: 'contractName', title: '合同名称', minWidth: 100, align: "center"},
                     {field: 'contractCode', title: '合同编码', minWidth: 100, align: "center"},
                     {field: 'amounts', title: '合同金额', minWidth: 100, align: "center"},
                     {field: 'startDate', title: '合同生效开始时间', minWidth: 100, align: "center"},
                     {field: 'endDate', title: '合同生效结束时间', minWidth: 100, align: "center"},
                     {field: 'content', title: '合同内容', minWidth: 100, align: "center"},
-                    {field: 'affixSealStatus', title: '是否盖章确认 0 否 1 是', minWidth: 100, align: "center"},
-                    {field: 'auditStatus', title: '审核状态 0 未审核 1 审核通过 -1 审核不通过', minWidth: 100, align: "center"},
-                    {field: 'nullifyStatus', title: '是否作废 1 作废 0 在用', minWidth: 100, align: "center"},
+                    {field: 'affixSealStatus', title: '是否盖章确认 0 否 1 是', minWidth: 100, align: "center", templet:
+                    function (e){
+                        if(e.affixSealStatus == 0){
+                            return '否';
+                        } else{
+                            return '是';
+                        }
+                    }},
+                    {field: 'auditStatus', title: '审核状态 0 未审核 1 审核通过 -1 审核不通过', minWidth: 100, align: "center", templet:
+                            function (e){
+                                if(e.auditStatus == 0){
+                                    return '未审核';
+                                } else if(e.auditStatus == 1){
+                                    return '审核通过';
+                                }else if(e.auditStatus == -1){
+                                    return '审核不通过';
+                                }
+                            }},
+                    {field: 'nullifyStatus', title: '是否作废 1 作废 0 在用', minWidth: 100, align: "center",templet:
+                            function (e){
+                                if(e.nullifyStatus == 1){
+                                    return '作废';
+                                } else{
+                                    return '在用';
+                                }
+                            }},
                     {field: 'inputUser', title: '录入人', minWidth: 100, align: "center"},
                     {field: 'inputTime', title: '录入时间', minWidth: 100, align: "center"},
                     {field: 'updateTime', title: '修改时间', minWidth: 100, align: "center"},

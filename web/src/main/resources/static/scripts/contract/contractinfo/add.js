@@ -6,11 +6,10 @@ layui.use(['form', 'layer','laydate'], function () {
 
     //渲染
     laydate.render({
-        elem: '#startDate',
+        elem: '#endDate'
     });
-
     laydate.render({
-        elem: '#endDate',
+        elem: '#startDate'
     });
 
     form.on('submit(Add-filter)', function (data) {

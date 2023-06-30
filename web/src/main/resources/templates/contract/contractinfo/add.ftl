@@ -19,14 +19,14 @@
         <form class="layui-form" action="" lay-filter="component-form-element">
             <div class="layui-row layui-col-space10 layui-form-item">
 
+<#--                <div class="layui-col-lg6">-->
+<#--                        <label class="layui-form-label">id</label>-->
+<#--                    <div class="layui-input-block">-->
+<#--                        <input type="text"  name="id"  placeholder="请输入"  autocomplete="off" class="layui-input">-->
+<#--                    </div>-->
+<#--                </div>-->
                 <div class="layui-col-lg6">
-                        <label class="layui-form-label">id</label>
-                    <div class="layui-input-block">
-                        <input type="text"  name="id"  placeholder="请输入"  autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-col-lg6">
-                        <label class="layui-form-label">客户id</label>
+                        <label class="layui-form-label">企业名称</label>
                     <div class="layui-input-block">
 <#--                        <input type="text"  name="custId"  placeholder="请输入"  autocomplete="off" class="layui-input">
 -->                   <select name="custId">
@@ -56,14 +56,16 @@
                         <input type="number"  name="amounts"  placeholder="请输入"  autocomplete="off" class="layui-input">
                     </div>
                 </div>
+
                 <div class="layui-col-lg6">
-                        <label class="layui-form-label">合同生效开始时间</label>
+                    <label class="layui-form-label">合同生效开始时间</label>
                     <div class="layui-input-block">
                         <input type="text"  id="startDate" name="startDate"  placeholder="请输入"  autocomplete="off" class="layui-input">
                     </div>
                 </div>
+
                 <div class="layui-col-lg6">
-                        <label class="layui-form-label">合同生效结束时间</label>
+                    <label class="layui-form-label">合同生效结束时间</label>
                     <div class="layui-input-block">
                         <input type="text"  id="endDate" name="endDate"  placeholder="请输入"  autocomplete="off" class="layui-input">
                     </div>
@@ -118,12 +120,12 @@
 <#--                        <input type="text"  name="inputTime"  placeholder="请输入"  autocomplete="off" class="layui-input">-->
 <#--                    </div>-->
 <#--                </div>-->
-                <div class="layui-col-lg6">
-                        <label class="layui-form-label">修改时间</label>
-                    <div class="layui-input-block">
-                        <input type="text"  name="updateTime"  placeholder="请输入"  autocomplete="off" class="layui-input">
-                    </div>
-                </div>
+<#--                <div class="layui-col-lg6">-->
+<#--                        <label class="layui-form-label">修改时间</label>-->
+<#--                    <div class="layui-input-block">-->
+<#--                        <input type="text"  name="updateTime"  placeholder="请输入"  autocomplete="off" class="layui-input">-->
+<#--                    </div>-->
+<#--                </div>-->
 
             </div>
             <div class="layui-form-item">

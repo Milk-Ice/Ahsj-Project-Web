@@ -23,7 +23,7 @@
 
                     <!-- 搜索条件start -->
                     <form class="layui-form layui-card-header layuiadmin-card-header-auto"
-                         id="searchForm">
+                          id="searchForm">
                         <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">合同名称</label>
@@ -33,7 +33,6 @@
                                            class="layui-input">
                                 </div>
                             </div>
-                            <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">合同编号</label>
                                 <div class="layui-input-block input-box">
@@ -42,20 +41,16 @@
                                            class="layui-input">
                                 </div>
                             </div>
-
-                                <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">审核方式</label>
                                 <div class="layui-input-block input-box">
-                                    <select  name="auditStatus">
+                                    <select name="auditStatus">
                                         <option value="0">未审核</option>
                                         <option value="1">审核通过</option>
                                         <option value="-1">审核不通过</option>
                                     </select>
                                 </div>
                             </div>
-
-                       、<div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">盖章方式</label>
                                 <div class="layui-input-block input-box">
@@ -65,8 +60,6 @@
                                     </select>
                                 </div>
                             </div>
-
-                       <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">作废方式</label>
                                 <div class="layui-input-block input-box">
@@ -78,7 +71,7 @@
                             </div>
 
                             <div class="layui-inline">
-                               <button type="button" class="layui-btn layui-btn-normal" id="SearchBtn"
+                                <button type="button" class="layui-btn layui-btn-normal" id="SearchBtn"
                                         data-type="reload">搜索
                                 </button>
                                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
@@ -123,6 +116,7 @@
 <script src="${request.contextPath}/layuiadmin/layui/layui.js"></script>
 <script src="${request.contextPath}/layui-extend.js"></script>
 <script src="${request.contextPath}/webjars/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="${request.contextPath}/scripts/contract/contractinfo/list.js?_=${randomNum}"></script>
+<script type="text/javascript"
+        src="${request.contextPath}/scripts/contract/contractinfo/list.js?_=${randomNum}"></script>
 </body>
 </html>

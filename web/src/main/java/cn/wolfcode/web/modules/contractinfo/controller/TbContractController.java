@@ -20,6 +20,7 @@ import link.ahsj.core.annotations.SysLog;
 import link.ahsj.core.annotations.UpdateGroup;
 import link.ahsj.core.entitys.ApiModel;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -48,8 +49,11 @@ public class TbContractController extends BaseController {
     private static final String LogModule = "TbContract";
 
     @GetMapping("/list.html")
-    public String list() {
-        return "contract/contractinfo/list";
+    public ModelAndView list(ModelAndView mv) {
+        List<TbCustomer> custList = customerService.list();
+        mv.addObject("custList", custList);
+        mv.setViewName("contract/contractinfo/list");
+        return mv;
     }
 
     @RequestMapping("/add.html")
@@ -122,6 +126,8 @@ public class TbContractController extends BaseController {
     @PreAuthorize("hasAuthority('contract:contractinfo:update')")
     public ResponseEntity<ApiModel> update(@Validated({UpdateGroup.class}) @RequestBody TbContract entity) {
 
+        //修改时间
+        entity.setUpdateTime(LocalDateTime.now());
         entityService.updateById(entity);
         return ResponseEntity.ok(ApiModel.ok());
     }
