@@ -33,18 +33,19 @@
                                            class="layui-input">
                                 </div>
                             </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-label">合同编号</label>
-                                <div class="layui-input-block input-box">
-                                    <input type="text" name="contractCode" placeholder="请输入"
-                                           autocomplete="off"
-                                           class="layui-input">
-                                </div>
-                            </div>
+<#--                            <div class="layui-inline">-->
+<#--                                <label class="layui-form-label">合同编号</label>-->
+<#--                                <div class="layui-input-block input-box">-->
+<#--                                    <input type="text" name="contractCode" placeholder="请输入"-->
+<#--                                           autocomplete="off"-->
+<#--                                           class="layui-input">-->
+<#--                                </div>-->
+<#--                            </div>-->
                             <div class="layui-inline">
                                 <label class="layui-form-label">审核方式</label>
                                 <div class="layui-input-block input-box">
                                     <select name="auditStatus">
+                                        <option value="">---未选择---</option>
                                         <option value="0">未审核</option>
                                         <option value="1">审核通过</option>
                                         <option value="-1">审核不通过</option>
@@ -55,6 +56,7 @@
                                 <label class="layui-form-label">盖章方式</label>
                                 <div class="layui-input-block input-box">
                                     <select name="affixSealStatus">
+                                        <option value="">---未选择---</option>
                                         <option value="0">否</option>
                                         <option value="1">是</option>
                                     </select>
@@ -64,6 +66,7 @@
                                 <label class="layui-form-label">作废方式</label>
                                 <div class="layui-input-block input-box">
                                     <select name="nullifyStatus">
+                                        <option value="">---未选择---</option>
                                         <option value="1">作废</option>
                                         <option value="0">在用</option>
                                     </select>

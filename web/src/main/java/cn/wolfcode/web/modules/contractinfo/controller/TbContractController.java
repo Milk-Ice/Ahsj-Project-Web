@@ -78,15 +78,21 @@ public class TbContractController extends BaseController {
 
     @RequestMapping("list")
     @PreAuthorize("hasAuthority('contract:contractinfo:list')")
-    public ResponseEntity page(LayuiPage layuiPage, String contractCode, String parameterName) {
+    public ResponseEntity page(LayuiPage layuiPage,String parameterName, String auditStatus, String affixSealStatus, String nullifyStatus) {
         //检查分页的参数的
         SystemCheckUtils.getInstance().checkMaxPage(layuiPage);
         //分页的对象
         IPage<TbContract> page = new Page<>(layuiPage.getPage(), layuiPage.getLimit());
 
+        System.out.println("parameterName = " + parameterName);
+        System.out.println("auditStatus = " + auditStatus);
+        System.out.println("affixSealStatus = " + affixSealStatus);
+        System.out.println("nullifyStatus = " + nullifyStatus);
         page = entityService.
                 lambdaQuery()
-                .eq(!StringUtils.isEmpty(contractCode), TbContract::getContractCode, contractCode)  //企业名称
+                .eq(!StringUtils.isEmpty(auditStatus), TbContract::getAuditStatus, auditStatus)
+                .eq(!StringUtils.isEmpty(affixSealStatus), TbContract::getAffixSealStatus, affixSealStatus)
+                .eq(!StringUtils.isEmpty(nullifyStatus), TbContract::getNullifyStatus, nullifyStatus)
                 .or()
                 .like(!StringUtils.isEmpty(parameterName), TbContract::getContractName, parameterName)
                 .page(page);
