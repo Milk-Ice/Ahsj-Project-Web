@@ -27,33 +27,35 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
         id: "ListTable",
         cols: [[
             {type: "checkbox", fixed: "left", width: 50},
-                    // {field: 'id', title:  'id', minWidth: 100, align: "center"},
-                    {field: 'custName', title: '所属企业', minWidth: 100, align: "center"},
-                    {field: 'prodName', title: '产品名称', minWidth: 100, align: "center"},
-                    {field: 'amounts', title: '产品数量', minWidth: 100, align: "center"},
-                    {field: 'price', title: '产品价格', minWidth: 100, align: "center"},
-                    {field: 'status', title: '状态', minWidth: 100, align: "center", templet:
-                            function (e){
-                                if(e.status == 0){
-                                    return " <button type=\"button\" class=\"layui-btn layui-btn-normal\">未发货</button>";
-                                }else if (e.status == 1){
-                                    return " <button type=\"button\" class=\"layui-btn layui-btn-warm\">已发货</button>";
-                                }else if(e.status == 2){
-                                    return " <button type=\"button\" class=\"layui-btn layui-btn-danger\">已收货</button>";
-                                }else if(e.status == 3){
-                                    return " <button type=\"button\" class=\"layui-btn layui-btn-disabled\">确认收货</button>";
-                                }else{
-                                    return '未知数据';
-                                }
+            // {field: 'id', title:  'id', minWidth: 100, align: "center"},
+            {field: 'custName', title: '所属企业', minWidth: 100, align: "center"},
+            {field: 'prodName', title: '产品名称', minWidth: 100, align: "center"},
+            {field: 'amounts', title: '产品数量', minWidth: 100, align: "center"},
+            {field: 'price', title: '产品价格', minWidth: 100, align: "center"},
+            {
+                field: 'status', title: '状态', minWidth: 100, align: "center", templet:
+                    function (e) {
+                        if (e.status == 0) {
+                            return " <button type=\"button\" class=\"layui-btn layui-btn-normal\">未发货</button>";
+                        } else if (e.status == 1) {
+                            return " <button type=\"button\" class=\"layui-btn layui-btn-warm\">已发货</button>";
+                        } else if (e.status == 2) {
+                            return " <button type=\"button\" class=\"layui-btn layui-btn-danger\">已收货</button>";
+                        } else if (e.status == 3) {
+                            return " <button type=\"button\" class=\"layui-btn layui-btn-disabled\">确认收货</button>";
+                        } else {
+                            return '未知数据';
+                        }
 
-                    }},
-                    {field: 'receiverName', title: '收货人', minWidth: 100, align: "center"},
-                    {field: 'linkPhone', title: '收货人电话', minWidth: 100, align: "center"},
-                    {field: 'address', title: '收货地址', minWidth: 100, align: "center"},
-                    {field: 'logistcs', title: '物流', minWidth: 100, align: "center"},
-                    {field: 'logisticsCode', title: '物流单号', minWidth: 100, align: "center"},
-                    {field: 'deliverTime', title: '发货时间', minWidth: 100, align: "center"},
-                    {field: 'receiveTime', title: '收货时间', minWidth: 100, align: "center"},
+                    }
+            },
+            {field: 'receiverName', title: '收货人', minWidth: 100, align: "center"},
+            {field: 'linkPhone', title: '收货人电话', minWidth: 100, align: "center"},
+            {field: 'address', title: '收货地址', minWidth: 100, align: "center"},
+            {field: 'logistcs', title: '物流', minWidth: 100, align: "center"},
+            {field: 'logisticsCode', title: '物流单号', minWidth: 100, align: "center"},
+            {field: 'deliverTime', title: '发货时间', minWidth: 100, align: "center"},
+            {field: 'receiveTime', title: '收货时间', minWidth: 100, align: "center"},
 
             {title: '操作', width: 160, templet: '#List-editBar', fixed: "right", align: "center"}
         ]],
@@ -115,7 +117,7 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
                 content: web.rootPath() + 'orderinfo/add.html'
             });
         }
-        if(obj.event == 'export'){
+        if (obj.event == 'export') {
 
             //获取搜索条件值
             var parameterName = $("#searchForm").find("input[name='parameterName']").val().trim();
@@ -123,7 +125,7 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
             var endTime = $("#searchForm").find("input[name='endTime']").val().trim();
 
             var eix;
-            $.fileDownload(web.rootPath() + "orderinfo/export?parameterName="+parameterName+"&startTime="+startTime+"&endTime="+endTime, {
+            $.fileDownload(web.rootPath() + "orderinfo/export?parameterName=" + parameterName + "&startTime=" + startTime + "&endTime=" + endTime, {
 
                 httpMethod: 'POST',
                 // data: {'parameterName':parameterName,'province':province,'openStatus':openStatus},
@@ -183,7 +185,8 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
                 }, function () {
                 });
                 break;
-        };
+        }
+        ;
     });
 
     $(window).resize(function () {

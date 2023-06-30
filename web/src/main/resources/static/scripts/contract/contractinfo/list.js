@@ -20,45 +20,55 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
         id: "ListTable",
         cols: [[
             {type: "checkbox", fixed: "left", width: 50},
-                    // {field: 'id', title:  'id', minWidth: 100, align: "center"},
-                    {field: 'custName', title: '所属企业', minWidth: 100, align: "center"},
-                    {field: 'contractName', title: '合同名称', minWidth: 100, align: "center"},
-                    {field: 'contractCode', title: '合同编码', minWidth: 100, align: "center"},
-                    {field: 'amounts', title: '合同金额', minWidth: 100, align: "center"},
-                    {field: 'startDate', title: '合同生效开始时间', minWidth: 100, align: "center"},
-                    {field: 'endDate', title: '合同生效结束时间', minWidth: 100, align: "center"},
-                    {field: 'content', title: '合同内容', minWidth: 100, align: "center"},
-                    {field: 'affixSealStatus', title: '是否盖章确认 0 否 1 是', minWidth: 100, align: "center", templet:
-                    function (e){
-                        if(e.affixSealStatus == 0){
+            // {field: 'id', title:  'id', minWidth: 100, align: "center"},
+            {field: 'custName', title: '所属企业', minWidth: 100, align: "center"},
+            {field: 'contractName', title: '合同名称', minWidth: 100, align: "center"},
+            {field: 'contractCode', title: '合同编码', minWidth: 100, align: "center"},
+            {field: 'amounts', title: '合同金额', minWidth: 100, align: "center"},
+            {field: 'startDate', title: '合同生效开始时间', minWidth: 100, align: "center"},
+            {field: 'endDate', title: '合同生效结束时间', minWidth: 100, align: "center"},
+            {field: 'content', title: '合同内容', minWidth: 100, align: "center"},
+            {
+                field: 'affixSealStatus', title: '是否盖章确认 0 否 1 是', minWidth: 100, align: "center", templet:
+                    function (e) {
+                        if (e.affixSealStatus == 0) {
                             return '<button type=\"button\" class=\"layui-btn layui-btn-danger\">否</button>'
 
-                        } else{
+                        } else {
                             return '<button type=\"button\" class=\"layui-btn layui-btn-primary\">是</button>'
                         }
-                    }},
-                    {field: 'auditStatus', title: '审核状态 0 未审核 1 审核通过 -1 审核不通过', minWidth: 100, align: "center", templet:
-                            function (e){
-                                if(e.auditStatus == 0){
-                                    return '<button type=\"button\" class=\"layui-btn layui-btn-warm\">未审核</button>';
-                                } else if(e.auditStatus == 1){
-                                    return '<button type=\"button\" class=\"layui-btn layui-btn-normal\">审核通过</button>';
-                                }else if(e.auditStatus == -1){
-                                    return '<button type=\"button\" class=\"layui-btn layui-btn-danger\">审核未通过</button>';
-                                }
-                            }},
-                    {field: 'nullifyStatus', title: '是否作废 1 作废 0 在用', minWidth: 100, align: "center",templet:
-                            function (e){
-                                if(e.nullifyStatus == 1){
-                                    return '<button type=\"button\" class=\"layui-btn layui-btn-danger\">作废</button>';
+                    }
+            },
+            {
+                field: 'auditStatus',
+                title: '审核状态 0 未审核 1 审核通过 -1 审核不通过',
+                minWidth: 100,
+                align: "center",
+                templet:
+                    function (e) {
+                        if (e.auditStatus == 0) {
+                            return '<button type=\"button\" class=\"layui-btn layui-btn-warm\">未审核</button>';
+                        } else if (e.auditStatus == 1) {
+                            return '<button type=\"button\" class=\"layui-btn layui-btn-normal\">审核通过</button>';
+                        } else if (e.auditStatus == -1) {
+                            return '<button type=\"button\" class=\"layui-btn layui-btn-danger\">审核未通过</button>';
+                        }
+                    }
+            },
+            {
+                field: 'nullifyStatus', title: '是否作废 1 作废 0 在用', minWidth: 100, align: "center", templet:
+                    function (e) {
+                        if (e.nullifyStatus == 1) {
+                            return '<button type=\"button\" class=\"layui-btn layui-btn-danger\">作废</button>';
 
-                                } else{
-                                    return '<button type=\"button\" class=\"layui-btn layui-btn-normal\">在用</button>';
-                                }
-                            }},
-                    {field: 'inputUser', title: '录入人', minWidth: 100, align: "center"},
-                    {field: 'inputTime', title: '录入时间', minWidth: 100, align: "center"},
-                    {field: 'updateTime', title: '修改时间', minWidth: 100, align: "center"},
+                        } else {
+                            return '<button type=\"button\" class=\"layui-btn layui-btn-normal\">在用</button>';
+                        }
+                    }
+            },
+            {field: 'inputUser', title: '录入人', minWidth: 100, align: "center"},
+            {field: 'inputTime', title: '录入时间', minWidth: 100, align: "center"},
+            {field: 'updateTime', title: '修改时间', minWidth: 100, align: "center"},
 
             {title: '操作', width: 160, templet: '#List-editBar', fixed: "right", align: "center"}
         ]],
@@ -96,8 +106,8 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
                 where: { //设定异步数据接口的额外参数，任意设
                     parameterName: parameterName,
                     auditStatus: auditStatus,
-                    affixSealStatus:affixSealStatus,
-                    nullifyStatus:nullifyStatus
+                    affixSealStatus: affixSealStatus,
+                    nullifyStatus: nullifyStatus
                 }
             });
         }
@@ -165,7 +175,8 @@ layui.use(['form', 'layer', 'table', 'laytpl', 'laydate'], function () {
                 }, function () {
                 });
                 break;
-        };
+        }
+        ;
     });
 
     $(window).resize(function () {
