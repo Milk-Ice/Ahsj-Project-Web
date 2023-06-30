@@ -90,7 +90,7 @@
 
 
                 <div class="layui-col-lg6">
-                        <label class="layui-form-label">状态 0 未发货 1 已发货 2 已收货</label>
+                        <label class="layui-form-label">状态</label>
                     <div class="layui-input-block">
 <#--                        <input type="text"-->
 <#--                               name="status"-->
@@ -100,7 +100,8 @@
                         <select name="status">
                             <option <#if obj.status==0>selected</#if> value="0">未发货</option>
                             <option <#if obj.status==1>selected</#if> value="1">已发货</option>
-                            <option <#if obj.status==1>selected</#if> value="2">已收货</option>
+                            <option <#if obj.status==2>selected</#if> value="2">已收货</option>
+                            <option <#if obj.status==3>selected</#if> value="3">确认收货</option>
                         </select>
                     </div>
                 </div>
@@ -116,7 +117,7 @@
 <#--                               autocomplete="off"-->
 <#--                               class="layui-input">-->
 
-                        <select name="linkmanId" id="linkmanId">
+                        <select name="receiver" id="receiver">
                             <option selected>${obj.receiver}</option>
                         </select>
                     </div>
@@ -176,6 +177,7 @@
                     <div class="layui-input-block">
                         <input type="text"
                                name="deliverTime"
+                               id="deliverTime"
                                value="${obj.deliverTime}"
                                autocomplete="off"
                                class="layui-input">
@@ -188,6 +190,7 @@
                     <div class="layui-input-block">
                         <input type="text"
                                name="receiveTime"
+                               id="receiveTime"
                                value="${obj.receiveTime}"
                                autocomplete="off"
                                class="layui-input">

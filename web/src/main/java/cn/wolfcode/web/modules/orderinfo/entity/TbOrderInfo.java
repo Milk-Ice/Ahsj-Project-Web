@@ -1,8 +1,10 @@
 package cn.wolfcode.web.modules.orderinfo.entity;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
@@ -32,20 +34,23 @@ public class TbOrderInfo implements Serializable {
     /**
      * 产品名称
      */
+    @Excel(name = "产品名称")
     private String prodName;
 
     /**
      * 产品数量
      */
+    @Excel(name = "产品数量")
     private Integer amounts;
 
     /**
      * 产品价格
      */
+    @Excel(name = "产品价格")
     private Integer price;
 
     /**
-     * 状态 0 未发货 1 已发货 2 已收货
+     * 状态 0 未发货 1 已发货 2 已收货 3 确认收货
      */
     private Integer status;
 
@@ -53,6 +58,10 @@ public class TbOrderInfo implements Serializable {
      * 收货人
      */
     private String receiver;
+
+    @TableField(exist = false)
+    private String receiverName;
+
 
     /**
      * 收货人电话
@@ -77,12 +86,12 @@ public class TbOrderInfo implements Serializable {
     /**
      * 发货时间
      */
-    private LocalDateTime deliverTime;
+    private LocalDate deliverTime;
 
     /**
      * 收货时间
      */
-    private LocalDateTime receiveTime;
+    private LocalDate receiveTime;
 
 
 }

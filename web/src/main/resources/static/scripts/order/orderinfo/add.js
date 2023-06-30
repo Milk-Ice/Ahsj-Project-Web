@@ -48,7 +48,7 @@ layui.use(['form', 'layer', 'laydate'], function () {
             dataType: "JSON",
             //成功回调方法
             success: function (e){
-                $("#linkmanId").empty(); //每一次数据渲染的时候做清空
+                $("#receiver").empty(); //每一次数据渲染的时候做清空
                 //组装数据
                 var optionHtml = `<option value="">--请选择--</option>`
                 if(e.data.length>0){
@@ -57,7 +57,7 @@ layui.use(['form', 'layer', 'laydate'], function () {
                     })
                 }
                 //设置选择信息
-                $("#linkmanId").html(optionHtml);
+                $("#receiver").html(optionHtml);
                 //渲染数据
                 form.render('select')
 

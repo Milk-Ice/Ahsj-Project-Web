@@ -25,9 +25,25 @@
                          id="searchForm">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <label class="layui-form-label">参数</label>
+                                <label class="layui-form-label">产品名称</label>
                                 <div class="layui-input-block input-box">
                                     <input type="text" name="parameterName" placeholder="请输入"
+                                           autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">录入开始时间</label>
+                                <div class="layui-input-block input-box">
+                                    <input type="text" name="startTime" placeholder="请输入" id="startTime"
+                                           autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">录入结束时间</label>
+                                <div class="layui-input-block input-box">
+                                    <input type="text" name="endTime" placeholder="请输入" id="endTime"
                                            autocomplete="off"
                                            class="layui-input">
                                 </div>
@@ -56,6 +72,10 @@
                                         lay-event="add"><i class="layui-icon">&#xe654;</i>新增
                                 </button>
                             </@sec.authenticate>
+                            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-tips="导出"
+                                    lay-event="export">
+                                <i class="layui-icon layui-icon-export"></i>导出
+                            </button>
                         </div>
                     </script>
 
@@ -79,6 +99,8 @@
 <script src="${request.contextPath}/layuiadmin/layui/layui.js"></script>
 <script src="${request.contextPath}/layui-extend.js"></script>
 <script src="${request.contextPath}/webjars/jquery/jquery.min.js"></script>
+<!--务必要引用  而且是在我们的 jquery.js后面 -->
+<script src="${request.contextPath}/fileDownload/jquery.fileDownload.min.js"></script>
 <script type="text/javascript" src="${request.contextPath}/scripts/order/orderinfo/list.js?_=${randomNum}"></script>
 </body>
 </html>

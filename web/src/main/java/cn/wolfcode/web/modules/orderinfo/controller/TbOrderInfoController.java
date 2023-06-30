@@ -9,6 +9,7 @@ import cn.wolfcode.web.modules.BaseController;
 import cn.wolfcode.web.modules.custinfo.entity.TbCustomer;
 import cn.wolfcode.web.modules.custinfo.service.ITbCustomerService;
 import cn.wolfcode.web.modules.linkman.entity.TbCustLinkman;
+import cn.wolfcode.web.modules.linkman.service.ITbCustLinkmanService;
 import cn.wolfcode.web.modules.log.LogModules;
 import cn.wolfcode.web.modules.orderinfo.entity.TbOrderInfo;
 import cn.wolfcode.web.modules.orderinfo.service.ITbOrderInfoService;
@@ -46,6 +47,8 @@ public class TbOrderInfoController extends BaseController {
 
     @Autowired
     private ITbCustomerService customerService;
+    @Autowired
+    private ITbCustLinkmanService custLinkmanService;
 
     private static final String LogModule = "TbOrderInfo";
 
@@ -83,7 +86,7 @@ public class TbOrderInfoController extends BaseController {
 
     @RequestMapping("list")
     @PreAuthorize("hasAuthority('order:orderinfo:list')")
-    public ResponseEntity page(LayuiPage layuiPage, String parameterName) {
+    public ResponseEntity page(LayuiPage layuiPage, String parameterName, String startTime, String endTime) {
         //检查分页的参数的
         SystemCheckUtils.getInstance().checkMaxPage(layuiPage);
         //分页的对象
@@ -91,10 +94,9 @@ public class TbOrderInfoController extends BaseController {
 
         page= entityService.
                 lambdaQuery()
-//                .eq(StringUtils.isNotEmpty(custId),TbCustLinkman::getCustId,custId)  //企业名称
-                .like(!StringUtils.isEmpty(parameterName),TbOrderInfo::getCustName,parameterName) //联系人姓名
-//                .or()
-//                .like(!StringUtils.isEmpty(parameterName),TbCustLinkman::getPhone,parameterName) //联系人电话
+//                .le(!StringUtils.isEmpty(endTime), TbOrderInfo::getReceiveTime, endTime)
+//                .ge(!StringUtils.isEmpty(startTime), TbOrderInfo::getDeliverTime, startTime)
+                .like(!StringUtils.isEmpty(parameterName),TbOrderInfo::getProdName,parameterName)
                 .page(page);
 
         //拿到分页列表
@@ -102,10 +104,13 @@ public class TbOrderInfoController extends BaseController {
         //循环分页列表
         records.forEach(item->{
             String id = item.getCustId();//拿到客户id
+            String receiverId = item.getReceiver();
             TbCustomer tbCustomer = customerService.getById(id);//根据客户id查询客户对象
+            TbCustLinkman tbCustLinkman = custLinkmanService.getById(receiverId);
             if(tbCustomer!=null){
                 item.setCustName(tbCustomer.getCustomerName());//赋值客户名字
-                System.out.println(item.getCustName());
+                item.setReceiverName(tbCustLinkman.getLinkman());
+//                System.out.println(item.getCustName());
             }
         });
         return ResponseEntity.ok(LayuiTools.toLayuiTableModel(page));
@@ -135,6 +140,31 @@ public class TbOrderInfoController extends BaseController {
     public ResponseEntity<ApiModel> delete(@PathVariable("id") String id) {
         entityService.removeById(id);
         return ResponseEntity.ok(ApiModel.ok());
+    }
+
+    @RequestMapping("export")
+    public void export(HttpServletResponse response,String startTime,String endTime,String parameterName) throws Exception{
+        //1. 导出的内容
+        List<TbOrderInfo> list = entityService
+                .lambdaQuery()
+                .le(StringUtils.isNotEmpty(startTime), TbOrderInfo::getDeliverTime, startTime)
+                .ge(StringUtils.isNotEmpty(endTime), TbOrderInfo::getReceiverName, endTime)
+                .like(!StringUtils.isEmpty(parameterName),TbOrderInfo::getProdName,parameterName)//企业名称
+                .list();
+        //2. 导出前的准备 设置表格标题属性样式的意思
+        ExportParams exportParams=new ExportParams();
+        /**
+         * 参数一: 表格标题属性
+         * 参数二: 你需要导出的类的字节码 配合一个注解使用 @Excel(name = 'XXXX')
+         * 参数三: 你需要导出的数据
+         *
+         * 返回回来是一个工作簿
+         */
+        Workbook workbook = ExcelExportUtil.exportExcel(exportParams, TbOrderInfo.class, list);
+
+        //3. 导出 -> IO流  输出流   字节
+        PoiExportHelper.exportExcel(response,"企业客户管理",workbook);
+
     }
 
 

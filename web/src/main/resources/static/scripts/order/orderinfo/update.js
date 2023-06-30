@@ -1,8 +1,15 @@
-layui.use(['form', 'layer'], function () {
+layui.use(['form', 'layer', 'laydate'], function () {
     var form = layui.form,
         layer = layui.layer,
+        laydate = layui.laydate, //日期时间插件
         $ = layui.jquery;
-
+    // 渲染
+    laydate.render({
+        elem: '#deliverTime'
+    });
+    laydate.render({
+        elem: '#receiveTime'
+    });
 
     form.on('submit(Add-filter)', function (data) {
         $.ajax({
@@ -39,7 +46,7 @@ layui.use(['form', 'layer'], function () {
             dataType: "JSON",
             //成功回调方法
             success: function (e){
-                $("#linkmanId").empty(); //每一次数据渲染的时候做清空
+                $("#receiver").empty(); //每一次数据渲染的时候做清空
                 //组装数据
                 // var optionHtml = `<option value="">--请选择--</option>`
                 var optionHtml = ``
@@ -50,7 +57,7 @@ layui.use(['form', 'layer'], function () {
                     })
                 }
                 //设置选择信息
-                $("#linkmanId").html(optionHtml);
+                $("#receiver").html(optionHtml);
                 //渲染数据
                 form.render('select')
 
