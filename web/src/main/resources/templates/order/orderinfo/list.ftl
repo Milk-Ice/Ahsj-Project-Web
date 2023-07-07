@@ -22,7 +22,7 @@
 
                     <!-- 搜索条件start -->
                     <form class="layui-form layui-card-header layuiadmin-card-header-auto"
-                         id="searchForm">
+                          id="searchForm">
                         <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">产品名称</label>

@@ -1,4 +1,5 @@
 package cn.wolfcode.web.modules.orderinfo.controller;
+
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.wolfcode.web.commons.entity.LayuiPage;
@@ -57,7 +58,7 @@ public class TbOrderInfoController extends BaseController {
 
         List<TbCustomer> custList = customerService.list(); //拿到企业客户对象中的所有数据
 
-        mv.addObject("custList",custList);
+        mv.addObject("custList", custList);
         mv.setViewName("order/orderinfo/list");
         return mv;
     }
@@ -76,7 +77,7 @@ public class TbOrderInfoController extends BaseController {
     public ModelAndView toUpdate(@PathVariable("id") String id, ModelAndView mv) {
 
         List<TbCustomer> custList = customerService.list(); //拿到企业客户对象中的所有数据
-        mv.addObject("custList",custList);
+        mv.addObject("custList", custList);
 
         mv.setViewName("order/orderinfo/update");
         mv.addObject("obj", entityService.getById(id));
@@ -92,22 +93,22 @@ public class TbOrderInfoController extends BaseController {
         //分页的对象
         IPage<TbOrderInfo> page = new Page<>(layuiPage.getPage(), layuiPage.getLimit());
 
-        page= entityService.
+        page = entityService.
                 lambdaQuery()
                 .ge(!StringUtils.isEmpty(startTime), TbOrderInfo::getInputTime, startTime)
                 .le(!StringUtils.isEmpty(endTime), TbOrderInfo::getInputTime, endTime)
-                .like(!StringUtils.isEmpty(parameterName),TbOrderInfo::getProdName,parameterName)
+                .like(!StringUtils.isEmpty(parameterName), TbOrderInfo::getProdName, parameterName)
                 .page(page);
 
         //拿到分页列表
         List<TbOrderInfo> records = page.getRecords();
         //循环分页列表
-        records.forEach(item->{
+        records.forEach(item -> {
             String id = item.getCustId();//拿到客户id
             String receiverId = item.getReceiver();
             TbCustomer tbCustomer = customerService.getById(id);//根据客户id查询客户对象
             TbCustLinkman tbCustLinkman = custLinkmanService.getById(receiverId);
-            if(tbCustomer!=null){
+            if (tbCustomer != null) {
                 item.setCustName(tbCustomer.getCustomerName());//赋值客户名字
                 item.setReceiverName(tbCustLinkman.getLinkman());
             }
@@ -117,7 +118,7 @@ public class TbOrderInfoController extends BaseController {
 
     @SameUrlData
     @PostMapping("save")
-    @SysLog(value = LogModules.SAVE, module =LogModule)
+    @SysLog(value = LogModules.SAVE, module = LogModule)
     @PreAuthorize("hasAuthority('order:orderinfo:add')")
     public ResponseEntity<ApiModel> save(@Validated({AddGroup.class}) @RequestBody TbOrderInfo entity) {
         entity.setInputTime(LocalDateTime.now());
@@ -143,16 +144,16 @@ public class TbOrderInfoController extends BaseController {
     }
 
     @RequestMapping("export")
-    public void export(HttpServletResponse response,String startTime,String endTime,String parameterName) throws Exception{
+    public void export(HttpServletResponse response, String startTime, String endTime, String parameterName) throws Exception {
         //1. 导出的内容
         List<TbOrderInfo> list = entityService
                 .lambdaQuery()
                 .le(StringUtils.isNotEmpty(startTime), TbOrderInfo::getDeliverTime, startTime)
                 .ge(StringUtils.isNotEmpty(endTime), TbOrderInfo::getReceiverName, endTime)
-                .like(!StringUtils.isEmpty(parameterName),TbOrderInfo::getProdName,parameterName)//企业名称
+                .like(!StringUtils.isEmpty(parameterName), TbOrderInfo::getProdName, parameterName)//企业名称
                 .list();
         //2. 导出前的准备 设置表格标题属性样式的意思
-        ExportParams exportParams=new ExportParams();
+        ExportParams exportParams = new ExportParams();
         /**
          * 参数一: 表格标题属性
          * 参数二: 你需要导出的类的字节码 配合一个注解使用 @Excel(name = 'XXXX')
@@ -163,10 +164,9 @@ public class TbOrderInfoController extends BaseController {
         Workbook workbook = ExcelExportUtil.exportExcel(exportParams, TbOrderInfo.class, list);
 
         //3. 导出 -> IO流  输出流   字节
-        PoiExportHelper.exportExcel(response,"企业客户管理",workbook);
+        PoiExportHelper.exportExcel(response, "企业客户管理", workbook);
 
     }
-
 
 
 }
